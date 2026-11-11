@@ -1,18 +1,21 @@
-# Anonymous artifact — LLM-LogFusion (offline-proxy and real-LLM evaluation)
+# LLM-LogFusion: Hierarchical Multi-Source Heterogeneous Log Anomaly Detection with Real-API Validation — artifact
+
+Repository: <https://github.com/Donaldzc/llm-logfusion-artifact> (branch `main`).
 
 This package contains the code, the synthetic-corpus generator, the public real-log
 pilot data and every result table/figure reported in the manuscript
-"LLM-LogFusion: A Hierarchical Multi-Source Heterogeneous Log Anomaly Detection
-Method with Offline-Proxy and Real-LLM Evaluation".
+"LLM-LogFusion: Hierarchical Multi-Source Heterogeneous Log Anomaly Detection
+with Real-API Validation".
 
 The five-seed tables use an offline surrogate as the second layer (TF-IDF text
 evidence + structural evidence + first-layer score, combined by a stacked
 logistic regression), because the surrogate is deterministic and cheap to
 re-run. The artifact additionally contains `scripts/run_real_llm.py`, which
-replays the seed-0 candidate set against a real chat-completions API with the
-same prompt and verdict parser, plus the per-call records of our run. A real API
-key is **not** bundled; the script reads it from `DEEPSEEK_API_KEY` and is
-optional for reviewing the offline results.
+replays the first-layer candidate set of a given seed against a real
+chat-completions API with the same prompt and verdict parser, plus the per-call
+records of our four runs (seeds 0-3). A real API key is **not** bundled; the
+script reads it from `DEEPSEEK_API_KEY` and is optional for reviewing the
+offline results.
 
 ---
 
@@ -97,32 +100,39 @@ platform timestamp format, `platform` is `BGL`, and `stage` is left empty
 (-1) because BGL carries no ATT&CK annotations. Only binary detection is
 therefore evaluated. The 2 000-line sample is a pilot, not a full BGL run.
 
-## 5. Real-LLM validation (seed 0)
+## 5. Real-API validation (seeds 0-3)
 
-`real_llm_calls_seed0.csv` records one row per API call made with the pipeline's
-own prompt and verdict parser: 2 233 first-layer candidates from the seed-0 test
-split (10.40% of 21 470 logs), no surrogate fallback. `real_llm_summary_seed0.json`
-aggregates metrics, bootstrap intervals, McNemar test and cost;
-`table_real_vs_proxy_seed0.csv` is the two-backend comparison used in the paper.
+`real_llm_calls_seed{0,1,2,3}.csv` record one row per API call made with the
+pipeline's own prompt and verdict parser: every first-layer candidate of seeds
+0-3 (2 233 + 2 196 + 2 263 + 2 137 = 8 829 calls, no sampling, no surrogate
+fallback).
+`real_llm_summary_seed{0,1,2,3}.json` aggregate metrics, bootstrap intervals,
+McNemar test and cost per seed; `aggregate_real_llm_seeds.py` merges them into
+`table_real_four_seeds.csv` (per seed), `table_real_vs_proxy.csv` (mean ± std)
+and `real_llm_four_seeds_summary.json` (paired tests).
 
-Headline numbers (one seed, `deepseek-flash`, temperature 0, `max_tokens` 4096):
+Headline numbers (seeds 0-3, `deepseek-flash`, temperature 0, `max_tokens` 4096,
+mean ± std):
 
-| Quantity | Real API | Offline proxy (same seed) |
+| Quantity | Real API | Offline proxy (same seeds) |
 |---|---|---|
-| Second layer F1 (2 233 candidates) | 0.8011 | 0.9829 |
-| Cascade F1 (21 470 test logs) | 0.7487 | 0.9144 |
-| Cascade precision / recall | 0.7422 / 0.7552 | 0.9691 / 0.8655 |
-| Stage-weighted F1 | 0.5172 | 0.8594 |
+| Second layer F1 (8 829 candidates) | 0.792 ± 0.012 | 0.979 ± 0.007 |
+| Cascade F1 (4 × 21 470 test logs) | 0.720 ± 0.025 | 0.884 ± 0.023 |
+| Cascade precision / recall | 0.726 ± 0.015 / 0.714 ± 0.035 | 0.962 ± 0.014 / 0.818 ± 0.035 |
+| Stage-weighted F1 | 0.532 ± 0.010 | 0.861 ± 0.006 |
 
-Operational statistics: parse failures 7/2 233 (0.31%), request failures 0,
-truncated 7, invalid stage labels 0; stage mismatch against gold 46.6% of
-outputs / 53.5% of true anomalies; latency p50 3.57 s, p95 11.1 s; 2.41 M tokens
-(59.7% reasoning tokens); CNY 12.33 for the run (~CNY 5.52 per 1 000 calls).
-Bootstrap 95% CI: cascade real [0.7307, 0.7672], proxy [0.9027, 0.9262];
-agreement 0.797, Cohen's kappa 0.596, McNemar p = 2.3e-12.
+Paired differences (real − proxy) are −0.187 ± 0.011 (second layer) and
+−0.164 ± 0.007 (cascade), paired t-test p < 1e-4.
 
-Reproducing this table requires a key and incurs real cost; the committed
-per-call records allow the numbers to be checked offline.
+Operational statistics over the 8 829 calls: parse failures 29 (0.33%), request
+failures 0, invalid stage labels 0; stage mismatch against gold 45.1% of outputs
+/ 52.2% of true anomalies; latency mean 4.87 s, p50 3.57-3.88 s, p95 11.76 s;
+9.58 M tokens (91.9% reasoning tokens); CNY 31.94 in total (CNY 3.62 per 1 000
+calls; seed 0 cost CNY 12.33 on a cold cache, seeds 1-3 cost CNY 5.93-7.26);
+agreement 0.800, Cohen's kappa 0.602.
+
+Reproducing these tables requires a key and incurs real cost; the committed
+per-call records allow every number to be checked offline.
 
 ## 6. What is intentionally absent
 
@@ -142,48 +152,34 @@ paths or identifiers from the authors' machine. The real-API validation sends
 the candidate log text to the model provider; do not run it on production logs
 without a data-processing review.
 
-## 7. Publishing this artifact (steps and account requirements)
+## 7. Repository and archival
 
-Steps 1-3 need an author account; step 4 is optional. None of them changes the
-content of this directory.
+The artifact is published at
+<https://github.com/Donaldzc/llm-logfusion-artifact> (branch `main`). Clone and
+run:
 
-1. **Zenodo (recommended, gives a DOI).** Sign in at `https://zenodo.org`
-   (author account) → *New upload* → upload
-   `llm-logfusion-anonymous.zip` → fill Title/Authors/Description (copy the
-   abstract) → choose licence (e.g. MIT for code; keep the LogHub citation note)
-   → *Publish*. Zenodo then shows a DOI and an anonymised share link.
-   Account required: yes (ORCID login or e-mail).
-2. **Anonymous GitHub mirror.** Create a repository at
-   `https://anonymous.4open.science/` (it mirrors a GitHub repo and strips
-   author identity; a GitHub account is required to create the mirror). Upload
-   the same zip content as a repository first.
-3. **Figshare.** `https://figshare.com` → *New item* → upload the zip → publish
-   (author account required). Use this if the venue asks for a non-Zenodo DOI.
-4. **Institutional repository (optional).** If the funding agreement requires a
+```
+git clone https://github.com/Donaldzc/llm-logfusion-artifact.git
+cd llm-logfusion-artifact
+pip install -r requirements.txt
+python scripts/run_reproduction.py
+```
+
+The repository mirrors this directory; no file is added or removed during
+publication. For an archival DOI, the same content can be uploaded to Zenodo or
+Figshare:
+
+1. **Zenodo (gives a DOI).** Sign in at `https://zenodo.org` → *New upload* →
+   upload `llm-logfusion-artifact.zip` → fill Title/Authors/Description (copy
+   the abstract) → choose licence (MIT for code; keep the LogHub citation note)
+   → *Publish*.
+2. **Figshare.** `https://figshare.com` → *New item* → upload the zip → publish.
+3. **Institutional repository (optional).** If the funding agreement requires a
    domestic repository, upload the same zip there; no file changes are needed.
-5. **GitHub (SSH push).** Create an empty repository (no README/LICENCE
-   initialisation) named `llm-logfusion-artifact`, then from the repository root:
-   ```
-   git init -b main
-   git add .
-   git commit -m "LLM-LogFusion anonymous artifact"
-   git remote add origin git@github.com:<account>/llm-logfusion-artifact.git
-   git push -u origin main
-   ```
-   If port 22 is blocked, add this to `~/.ssh/config` and keep the usual
-   `git@github.com:` remote:
-   ```
-   Host github.com
-       HostName ssh.github.com
-       Port 443
-       User git
-   ```
 
-After publication, insert the DOI/link into the "Data and code availability"
-statement of the manuscript (currently it says the repository is not yet public
-and that readers may request the files from the corresponding author).
+## 8. Contact
 
-## 7. Contact
-
-During anonymous review, please use the venue's discussion channel. The
-corresponding author's e-mail is withheld in this package.
+Questions and issues: open an issue at
+<https://github.com/Donaldzc/llm-logfusion-artifact/issues>. Author e-mail
+addresses are not duplicated in this package; they are listed in the
+manuscript and in `CITATION.cff` by name only.

@@ -1,8 +1,21 @@
 cff-version: 1.2.0
 message: "If you use this artifact, please cite the accompanying manuscript."
-title: "LLM-LogFusion: A Hierarchical Multi-Source Heterogeneous Log Anomaly Detection Method with Offline-Proxy and Real-LLM Evaluation"
+title: "LLM-LogFusion: Hierarchical Multi-Source Heterogeneous Log Anomaly Detection with Real-API Validation"
 authors:
-  - name: "Anonymous Authors"
+  - family-names: "Dai"
+    given-names: "Zicheng"
+    affiliation: "School of Cyber Science and Engineering, Huazhong University of Science and Technology"
+  - family-names: "Han"
+    given-names: "Lansheng"
+    affiliation: "School of Cyber Science and Engineering, Huazhong University of Science and Technology"
+  - family-names: "Zhu"
+    given-names: "Dongjun"
+    affiliation: "School of Cyber Science and Engineering, Huazhong University of Science and Technology"
+  - family-names: "Ye"
+    given-names: "Xiaohu"
+    affiliation: "NSFOCUS Technologies Group Co., Ltd."
 year: 2026
 license: MIT
 type: software
+repository-code: "https://github.com/Donaldzc/llm-logfusion-artifact"
+url: "https://github.com/Donaldzc/llm-logfusion-artifact"
