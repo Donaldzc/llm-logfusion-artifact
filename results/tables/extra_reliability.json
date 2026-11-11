@@ -1,0 +1,11 @@
+{
+  "backend": "offline-surrogate",
+  "n_candidates": 2233,
+  "n_llm_calls": 2233,
+  "parse_failures": 0,
+  "parse_failure_note": "\u79bb\u7ebf\u4ee3\u7406\u4e0d\u4ea7\u751f\u81ea\u7531\u6587\u672c\uff0c\u65e0 JSON \u89e3\u6790\u73af\u8282\uff1bAPI \u540e\u7aef\u9700\u91cd\u8dd1\u7edf\u8ba1",
+  "detected_true_anomalies": 1036,
+  "stage_accuracy_on_detected": 0.86003861003861,
+  "stage_hallucination_rate": 0.1167953667953668,
+  "hallucination_definition": "\u9884\u6d4b\u9636\u6bb5\u4e0d\u5728\u8be5\u6837\u672c\u6240\u5c5e\u653b\u51fb\u94fe\u7684\u771f\u5b9e\u9636\u6bb5\u96c6\u5408\u4e2d"
+}

@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.secrets/
+*.pem
+id_ed25519*
+.DS_Store
+Thumbs.db

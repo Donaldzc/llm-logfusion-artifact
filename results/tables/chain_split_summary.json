@@ -1,0 +1,128 @@
+{
+  "random_f1_mean": 0.8857578265958018,
+  "random_f1_std": 0.020704839004082855,
+  "campaign_f1_mean": 0.9023847270576788,
+  "campaign_f1_std": 0.03996743947182139,
+  "delta": 0.01662690046187698,
+  "random_test_anomalies": [
+    1197,
+    1198,
+    1197,
+    1197,
+    1197
+  ],
+  "campaign_test_anomalies": [
+    1203,
+    1198,
+    1211,
+    1205,
+    1206
+  ],
+  "random_test_rate": 0.05576152771308803,
+  "campaign_test_rate": 0.05608891611842667,
+  "random_overlap": 0.7523707498835585,
+  "campaign_overlap": 0.7525122376256091,
+  "random_anomaly_overlap": 0.5016691701429422,
+  "campaign_anomaly_overlap": 0.49292811260172736,
+  "counterfactual": {
+    "campaign_f1_with_random_weights": [
+      0.8132048822045305,
+      0.9064080835130293,
+      0.9135245317063634,
+      0.8666926685524602,
+      0.9446628853302587
+    ],
+    "random_f1_with_campaign_weights": [
+      0.9066569756045837,
+      0.8716443225517134,
+      0.8413963204006634,
+      0.8612140270617975,
+      0.8751153102017251
+    ],
+    "campaign_with_random_weights_mean": 0.8888986102613284,
+    "random_with_campaign_weights_mean": 0.8712053911640967
+  },
+  "per_platform": [
+    {
+      "platform": "HDFS",
+      "random_anomalies": 137.6,
+      "campaign_anomalies": 137.4,
+      "random_f1": 0.9571,
+      "campaign_f1": 0.9647,
+      "random_share": 0.1149,
+      "campaign_share": 0.1141
+    },
+    {
+      "platform": "BGL",
+      "random_anomalies": 96.2,
+      "campaign_anomalies": 100.2,
+      "random_f1": 0.9841,
+      "campaign_f1": 0.9778,
+      "random_share": 0.0804,
+      "campaign_share": 0.0832
+    },
+    {
+      "platform": "OpenStack",
+      "random_anomalies": 96.4,
+      "campaign_anomalies": 95.4,
+      "random_f1": 0.9615,
+      "campaign_f1": 0.9567,
+      "random_share": 0.0805,
+      "campaign_share": 0.0792
+    },
+    {
+      "platform": "Windows",
+      "random_anomalies": 55.2,
+      "campaign_anomalies": 50.0,
+      "random_f1": 0.9622,
+      "campaign_f1": 0.9505,
+      "random_share": 0.0461,
+      "campaign_share": 0.0415
+    },
+    {
+      "platform": "Apache",
+      "random_anomalies": 198.4,
+      "campaign_anomalies": 201.0,
+      "random_f1": 0.9435,
+      "campaign_f1": 0.943,
+      "random_share": 0.1657,
+      "campaign_share": 0.1669
+    },
+    {
+      "platform": "Firewall",
+      "random_anomalies": 57.2,
+      "campaign_anomalies": 57.6,
+      "random_f1": 0.9684,
+      "campaign_f1": 0.9875,
+      "random_share": 0.0478,
+      "campaign_share": 0.0478
+    },
+    {
+      "platform": "Database",
+      "random_anomalies": 215.6,
+      "campaign_anomalies": 222.8,
+      "random_f1": 0.8788,
+      "campaign_f1": 0.861,
+      "random_share": 0.1801,
+      "campaign_share": 0.185
+    },
+    {
+      "platform": "SSH",
+      "random_anomalies": 174.4,
+      "campaign_anomalies": 181.6,
+      "random_f1": 0.8571,
+      "campaign_f1": 0.8784,
+      "random_share": 0.1457,
+      "campaign_share": 0.1508
+    },
+    {
+      "platform": "DNS",
+      "random_anomalies": 166.2,
+      "campaign_anomalies": 158.6,
+      "random_f1": 0.5221,
+      "campaign_f1": 0.6647,
+      "random_share": 0.1388,
+      "campaign_share": 0.1317
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+stage,short,pagerank,kept,in_degree,out_degree
+Initial Access,Init,0.11741532566071174,True,46.0,44.0
+Execution,Exec,0.04308317528455274,True,11.0,10.0
+Persistence,Persist,0.04019357123524785,False,9.0,11.0
+Privilege Escalation,PrivEsc,0.08767725684512405,True,30.0,29.0
+Defense Evasion,Evas,0.017338104179375702,False,2.0,2.0
+Credential Access,Cred,0.11102656352714027,True,41.0,41.0
+Discovery,Disc,0.10490496289939481,True,41.0,41.0
+Lateral Movement,LatMov,0.019941474273758936,False,3.0,3.0
+Collection,Coll,0.1341103671276626,True,57.0,59.0
+Command and Control,C2,0.04444628496579746,True,15.0,16.0
+Exfiltration,Exfil,0.135303911053808,True,57.0,55.0
+Impact,Impact,0.14455900294742563,True,61.0,62.0

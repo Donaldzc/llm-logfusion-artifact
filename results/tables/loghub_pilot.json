@@ -1,0 +1,94 @@
+{
+  "dataset": "LogHub BGL_2k sample",
+  "n_logs": 2000,
+  "n_anomalies": 143,
+  "anomaly_rate": 0.0715,
+  "label_types": {
+    "KERNDTLB": 60,
+    "KERNSTOR": 30,
+    "APPSEV": 17,
+    "KERNMNTF": 11,
+    "KERNTERM": 7,
+    "KERNREC": 5,
+    "APPRES": 4,
+    "APPREAD": 3,
+    "KERNRTSP": 2,
+    "APPTO": 2,
+    "APPCHILD": 1,
+    "APPOUT": 1
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "summary": {
+    "LLM-LogFusion (default)": {
+      "mean": {
+        "precision": 0.8639481846378398,
+        "recall": 0.34550078247261345,
+        "f1": 0.4932238854953456,
+        "fpr": 0.004306633012879997,
+        "call_rate": 0.10500000000000001
+      },
+      "std": {
+        "precision": 0.06761421310604579,
+        "recall": 0.007107698856481345,
+        "f1": 0.01720002119344593,
+        "fpr": 0.002524444211115065,
+        "call_rate": 0.013360389215887392
+      }
+    },
+    "Cascade, struct-only 1st layer": {
+      "mean": {
+        "precision": 0.8617198067632849,
+        "recall": 0.3005868544600939,
+        "f1": 0.4441288119772291,
+        "fpr": 0.003876062506959652,
+        "call_rate": 0.11039999999999998
+      },
+      "std": {
+        "precision": 0.059884265299496246,
+        "recall": 0.03265464093711099,
+        "f1": 0.03427620469748491,
+        "fpr": 0.002232349713749744,
+        "call_rate": 0.009762171889492627
+      }
+    },
+    "Isolation Forest only": {
+      "mean": {
+        "precision": 0.24503774305952164,
+        "recall": 0.35676838810641626,
+        "f1": 0.28954466511327565,
+        "fpr": 0.08570324969377527,
+        "call_rate": 0.0
+      },
+      "std": {
+        "precision": 0.03317931613023238,
+        "recall": 0.01662662245449398,
+        "f1": 0.024199421732913718,
+        "fpr": 0.014160181266756881,
+        "call_rate": 0.0
+      }
+    },
+    "Text+struct LLM (full call)": {
+      "mean": {
+        "precision": 0.9344778736920049,
+        "recall": 0.9887323943661972,
+        "f1": 0.960657905025289,
+        "fpr": 0.0053839872313574105,
+        "call_rate": 1.0
+      },
+      "std": {
+        "precision": 0.03153234770286516,
+        "recall": 0.015428804436765222,
+        "f1": 0.02080289037904803,
+        "fpr": 0.0027470908431839816,
+        "call_rate": 0.0
+      }
+    }
+  },
+  "note": "2 000-line public sample; binary detection only (no stage labels)."
+}

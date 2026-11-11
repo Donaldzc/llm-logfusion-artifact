@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite the accompanying manuscript."
+title: "LLM-LogFusion: A Hierarchical Multi-Source Heterogeneous Log Anomaly Detection Method with Offline-Proxy and Real-LLM Evaluation"
+authors:
+  - name: "Anonymous Authors"
+year: 2026
+license: MIT
+type: software
